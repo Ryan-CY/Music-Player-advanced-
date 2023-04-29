@@ -2,7 +2,7 @@
 //  MusicPlayerViewController.swift
 //  Music Player(basic)
 //
-//  Created by Ryan Lin on 2022/12/9.
+//  Created by Ryan Lin on 2023/4/21.
 //
 
 import UIKit
@@ -12,98 +12,242 @@ import AVFoundation
 class MusicPlayerViewController: UIViewController {
     
     @IBOutlet weak var shadowView: UIView!
+    
     @IBOutlet weak var songPhotoImageView: UIImageView!
+    
     @IBOutlet weak var songLabel: UILabel!
     @IBOutlet weak var singerLabel: UILabel!
+    @IBOutlet weak var playingTimeLabel: UILabel!
+    @IBOutlet weak var totalTimeLabel: UILabel!
+    
+    @IBOutlet weak var shuffleButton: UIButton!
     @IBOutlet weak var playPauseButton: UIButton!
+    @IBOutlet weak var repeatButton: UIButton!
     
-    var songs = ["崖上的波妞", "因為你 所以我", "The End of the World"]
+    @IBOutlet weak var volumeSlider: UISlider!
+    @IBOutlet weak var timeSlider: UISlider!
     
-    var index = 1
-    
-    enum Singers : String {
-        case 青峰
-        case 五月天
-        case 戴維絲
+    var currentTime = Double(0)
+    var musics = [Song]()
+    var index = 0
+    var url: URL? {
+        willSet {
+            MusicPlayerViewController.timerCurrent?.invalidate()
+            print("url🛑timerCurrent?.invalidate()")
+        }
     }
-    
-    //把型別 AVPlayer 存入常數 player，就可使用AVPlayer()裡的功能
-    let player = AVPlayer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        volume()
+        playMusic()
+        configuration()
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil, queue: .main) { _ in
+            
+            if self.repeatButton.imageView?.image == UIImage(systemName: "repeat") {
+                //自動播放下一首
+                //print("🔁🔁🔁")
+                MusicPlayerViewController.player.pause()
+                self.index = (self.index + 1) % self.musics.count
+                self.currentTime = 0
+                self.playMusic()
+            } else if self.repeatButton.imageView?.image == UIImage(systemName: "repeat.1") {
+                //print("🔂")
+                MusicPlayerViewController.player.pause()
+                
+                self.currentTime = 0
+                self.playMusic()
+            }
+        }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        MusicPlayerViewController.timerCurrent?.invalidate()
+        print("viewDidDisappear🛑timerCurrent?.invalidate()")
+    }
+    
+    //playing music in background
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        try? AVAudioSession.sharedInstance().setCategory(.playback)
+        return true
+    }
+    
+    func volume() {
+        volumeSlider.value = MusicPlayerViewController.controllerVolume
+        MusicPlayerViewController.player.volume = volumeSlider.value
+    }
+    
+    func playMusic() {
+        
+        // 4 steps to play music
+        self.url = musics[self.index].previewUrl
+        let playerItem = AVPlayerItem(url: self.url!)
+        MusicPlayerViewController.player.replaceCurrentItem(with: playerItem)
+        MusicPlayerViewController.player.play()
+        
+        //show pause button
+        playPauseButton.configuration?.image = UIImage(systemName: "pause.fill")
+        //show album cover
+        URLSession.shared.dataTask(with: musics[self.index].artworkUrl500) { data, response, error in
+            if let data,
+               let response = response as? HTTPURLResponse {
+                print("image statusCode", response.statusCode)
+                let image = UIImage(data: data)
+                DispatchQueue.main.async {
+                    MusicPlayerViewController.songPicture = image
+                    self.songPhotoImageView.image = MusicPlayerViewController.songPicture
+                    self.songPhotoImageView.contentMode = .scaleAspectFill
+                }
+            }
+        }.resume()
+        
+        //show song name
+        MusicPlayerViewController.songName = musics[self.index].trackName
+        songLabel.text = MusicPlayerViewController.songName
+        //show singer
+        MusicPlayerViewController.singer = musics[self.index].artistName
+        singerLabel.text = MusicPlayerViewController.singer
+        //show totoal time
+        let totaltime = (MusicPlayerViewController.player.currentItem?.asset.duration.seconds)!
+        let newTotalTime = Int(totaltime).quotientAndRemainder(dividingBy: 60)
+        let showTotalTime = "\(newTotalTime.quotient):\(newTotalTime.remainder)"
+        
+        self.totalTimeLabel.text = showTotalTime
+        
+        self.timeSlider.maximumValue = Float(totaltime)
+        //show process of time
+        if self.currentTime.isZero == true {
+            MusicPlayerViewController.timerCurrent = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) {_ in
+                
+                self.currentTime = MusicPlayerViewController.player.currentTime().seconds
+                
+                self.timeConfiguration()
+            }
+        } else {
+            let time = CMTime(value: Int64(self.currentTime), timescale: 1)
+            MusicPlayerViewController.player.seek(to: time)
+            MusicPlayerViewController.timerCurrent = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) {_ in
+                
+                self.timeConfiguration()
+            }
+        }
+    }
+    
+    func timeConfiguration() {
+        // insure app against crashing by currentTime being Nan or infinite
+        guard !(currentTime.isNaN || currentTime.isInfinite) else {return}
+        
+        let intCurrentTime = Int(self.currentTime)
+        let newCurrentTime = intCurrentTime.quotientAndRemainder(dividingBy: 60)
+        let showCurrentTime = "\(newCurrentTime.quotient):\(newCurrentTime.remainder)"
+        print("index \(index)", showCurrentTime)
+        
+        self.playingTimeLabel.text = showCurrentTime
+        
+        self.timeSlider.minimumValue = 0
+        
+        self.timeSlider.value = Float(self.currentTime)
+        
+    }
+    
+    func configuration() {
+        
+        songLabel.adjustsFontSizeToFitWidth = true
+        singerLabel.adjustsFontSizeToFitWidth = true
+        
+        repeatButton.setImage(UIImage(systemName: "repeat"), for: .normal)
+        
+        let volumeImage = UIImage(systemName: "circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20))
+        
+        volumeSlider.setThumbImage(volumeImage, for: .normal)
+        
+        timeSlider.thumbTintColor = .systemTeal
+        let sliderImage = UIImage(systemName: "app.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20))
+        timeSlider.setThumbImage(sliderImage, for: .normal)
         
         songPhotoImageView.layer.cornerRadius = CGFloat(20)
         shadowView.layer.cornerRadius = CGFloat(20)
         shadowView.layer.shadowOpacity = Float(1)
         shadowView.layer.shadowRadius = CGFloat(20)
         shadowView.layer.shadowColor = CGColor(red: 1, green: 1, blue: 1, alpha: 1)
-        
-        
     }
     
-    fileprivate func playMusic() {
-        //四個步驟播放音樂
-        //1.透過 Bundle.main 讀取程式本生的資料夾，找到音樂mp3檔的url路徑
-        let fileUrl = Bundle.main.url(forResource: songs[index], withExtension: "mp3")!
-        //2.利用 AVPlayerItem 生成要播放的音樂
-        let playerItem = AVPlayerItem(url: fileUrl)
-        //3.設定 player 要播放的 AVPlayerItem
-        player.replaceCurrentItem(with: playerItem)
-        //4.開始播放
-        player.play()
+    @IBAction func shuffleButton(_ sender: UIButton) {
         
-        //button顯示暫停圖示
-        playPauseButton.configuration?.image = UIImage(systemName: "pause.fill")
-        //顯示歌曲對應的圖示
-        songPhotoImageView.image = UIImage(named: songs[index])
-        //顯示歌曲名稱
-        songLabel.text = String(songs[index])
-        //用switch讓歌手與歌曲對上
-        switch songs[index] {
-        case "崖上的波妞" :
-            singerLabel.text = String(Singers.青峰.rawValue)
-        case "因為你 所以我":
-            singerLabel.text = String(Singers.五月天.rawValue)
-        case "The End of the World":
-            singerLabel.text = String(Singers.戴維絲.rawValue)
-        default:
-            break
-        }
-    }
-    
-    @IBAction func shuffleButton(_ sender: Any) {
-        //讓songs array裡改變順序
-        songs.shuffle()
-        playMusic()
-    }
-    
-    @IBAction func playButtonChosen(_ sender: UIButton) {
-        
-        switch player.timeControlStatus {
-            //狀態是播放中時
-        case .playing :
-            //暫停播放
-            player.pause()
-            //button顯示播放圖示
-            sender.configuration?.image = UIImage(systemName: "play.fill")
-            //裝態不是在播放中時
-        default:
+        if shuffleButton.imageView?.image == UIImage(systemName: "shuffle.circle") {
+            sender.setImage(UIImage(systemName: "arrow.right.circle"), for: .normal)
+            self.index = 0
+            self.currentTime = 0
+            playMusic()
+        } else if shuffleButton.imageView?.image == UIImage(systemName: "arrow.right.circle") {
+            sender.setImage(UIImage(systemName: "shuffle.circle"), for: .normal)
+            //songs array in rendom order
+            musics.shuffle()
+            self.currentTime = 0
             playMusic()
         }
     }
     
+    @IBAction func playButtonChosen(_ sender: UIButton) {
+        switch MusicPlayerViewController.player.timeControlStatus {
+            //playing song
+        case .playing :
+            //pause song
+            MusicPlayerViewController.player.pause()
+            //change the image of button
+            sender.configuration?.image = UIImage(systemName: "play.fill")
+            
+        default:
+            MusicPlayerViewController.player.play()
+            sender.configuration?.image = UIImage(systemName: "pause.fill")
+        }
+    }
+    
     @IBAction func nextButton(_ sender: Any) {
-        index = (index + 1)%songs.count
+        self.currentTime = 0
+        MusicPlayerViewController.player.pause()
+        self.index = (self.index + 1) % musics.count
         playMusic()
     }
     
     @IBAction func preButton(_ sender: Any) {
-        index = (index+songs.count-1)%songs.count
+        self.currentTime = 0
+        MusicPlayerViewController.player.pause()
+        self.index = (self.index+musics.count-1) % musics.count
         playMusic()
     }
     
     @IBAction func changeVolumeSlider(_ sender: UISlider) {
-        player.volume = sender.value
+        
+        MusicPlayerViewController.controllerVolume = sender.value
+        
+        MusicPlayerViewController.player.volume = MusicPlayerViewController.controllerVolume
+        //print("🔊MusicPlayerViewController.controllerVolume", MusicPlayerViewController.controllerVolume)
+    }
+    
+    //change process of song while sliding the slider
+    @IBAction func changeTimeSlider(_ sender: UISlider) {
+        let time = CMTime(value: CMTimeValue(sender.value), timescale: 1)
+        MusicPlayerViewController.player.seek(to: time)
+    }
+    
+    @IBAction func pressGoforward(_ sender: Any) {
+        let time = CMTime(value: Int64(timeSlider.value + 5), timescale: 1)
+        MusicPlayerViewController.player.seek(to: time)
+    }
+    
+    @IBAction func pressBackward(_ sender: Any) {
+        let time = CMTime(value: Int64(timeSlider.value - 5), timescale: 1)
+        MusicPlayerViewController.player.seek(to: time)
+    }
+    
+    @IBAction func pressRepeat(_ sender: Any) {
+        if repeatButton.imageView?.image == UIImage(systemName: "repeat") {
+            repeatButton.setImage(UIImage(systemName: "repeat.1"), for: .normal)
+        } else {
+            repeatButton.setImage(UIImage(systemName: "repeat"), for: .normal)
+        }
     }
 }

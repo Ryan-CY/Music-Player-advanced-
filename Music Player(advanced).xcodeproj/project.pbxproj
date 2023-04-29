@@ -7,21 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7724CFF429F16AD2009E21F1 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7724CFF329F16AD2009E21F1 /* SearchViewController.swift */; };
+		7724CFF629F17011009E21F1 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7724CFF529F17011009E21F1 /* Result.swift */; };
+		7724CFF829F220A1009E21F1 /* SearchViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7724CFF729F220A1009E21F1 /* SearchViewController+Extension.swift */; };
+		7724CFFA29F22325009E21F1 /* SongCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7724CFF929F22325009E21F1 /* SongCollectionViewCell.swift */; };
 		77265BE92942EB9800BA6E7D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77265BE82942EB9800BA6E7D /* AppDelegate.swift */; };
 		77265BEB2942EB9800BA6E7D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77265BEA2942EB9800BA6E7D /* SceneDelegate.swift */; };
 		77265BF02942EB9800BA6E7D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77265BEE2942EB9800BA6E7D /* Main.storyboard */; };
 		77265BF22942EB9800BA6E7D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77265BF12942EB9800BA6E7D /* Assets.xcassets */; };
 		77265BF52942EB9800BA6E7D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77265BF32942EB9800BA6E7D /* LaunchScreen.storyboard */; };
 		77265BFD2942FBB200BA6E7D /* MusicPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77265BFC2942FBB200BA6E7D /* MusicPlayerViewController.swift */; };
-		77265C022943008D00BA6E7D /* 崖上的波妞.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 77265BFF2943008D00BA6E7D /* 崖上的波妞.mp3 */; };
-		77265C032943008D00BA6E7D /* The End of the World.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 77265C002943008D00BA6E7D /* The End of the World.mp3 */; };
-		77265C05294300CF00BA6E7D /* 因為你 所以我.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 77265C04294300CF00BA6E7D /* 因為你 所以我.mp3 */; };
-		77265C0729432FCD00BA6E7D /* PhotoUIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77265C0629432FCD00BA6E7D /* PhotoUIImageView.swift */; };
 		77265C0929438F1000BA6E7D /* ChenYuluoyan-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 77265C0829438F1000BA6E7D /* ChenYuluoyan-Thin.ttf */; };
+		77FE821A29FA5E3B004BA19D /* MusicPlayerViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FE821929FA5E3B004BA19D /* MusicPlayerViewController+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		77265BE52942EB9800BA6E7D /* Music Player(basic).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Music Player(basic).app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7724CFF329F16AD2009E21F1 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		7724CFF529F17011009E21F1 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		7724CFF729F220A1009E21F1 /* SearchViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchViewController+Extension.swift"; sourceTree = "<group>"; };
+		7724CFF929F22325009E21F1 /* SongCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongCollectionViewCell.swift; sourceTree = "<group>"; };
+		77265BE52942EB9800BA6E7D /* Music Player(advanced).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Music Player(advanced).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		77265BE82942EB9800BA6E7D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		77265BEA2942EB9800BA6E7D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		77265BEF2942EB9800BA6E7D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -29,11 +34,8 @@
 		77265BF42942EB9800BA6E7D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		77265BF62942EB9800BA6E7D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		77265BFC2942FBB200BA6E7D /* MusicPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicPlayerViewController.swift; sourceTree = "<group>"; };
-		77265BFF2943008D00BA6E7D /* 崖上的波妞.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "崖上的波妞.mp3"; sourceTree = "<group>"; };
-		77265C002943008D00BA6E7D /* The End of the World.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "The End of the World.mp3"; sourceTree = "<group>"; };
-		77265C04294300CF00BA6E7D /* 因為你 所以我.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "因為你 所以我.mp3"; sourceTree = "<group>"; };
-		77265C0629432FCD00BA6E7D /* PhotoUIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoUIImageView.swift; sourceTree = "<group>"; };
 		77265C0829438F1000BA6E7D /* ChenYuluoyan-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ChenYuluoyan-Thin.ttf"; sourceTree = "<group>"; };
+		77FE821929FA5E3B004BA19D /* MusicPlayerViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MusicPlayerViewController+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,7 +60,7 @@
 		77265BE62942EB9800BA6E7D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				77265BE52942EB9800BA6E7D /* Music Player(basic).app */,
+				77265BE52942EB9800BA6E7D /* Music Player(advanced).app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -69,12 +71,13 @@
 				77265C0829438F1000BA6E7D /* ChenYuluoyan-Thin.ttf */,
 				77265BE82942EB9800BA6E7D /* AppDelegate.swift */,
 				77265BEA2942EB9800BA6E7D /* SceneDelegate.swift */,
-				77265C0629432FCD00BA6E7D /* PhotoUIImageView.swift */,
 				77265BFC2942FBB200BA6E7D /* MusicPlayerViewController.swift */,
+				77FE821929FA5E3B004BA19D /* MusicPlayerViewController+Extension.swift */,
+				7724CFF329F16AD2009E21F1 /* SearchViewController.swift */,
+				7724CFF729F220A1009E21F1 /* SearchViewController+Extension.swift */,
+				7724CFF929F22325009E21F1 /* SongCollectionViewCell.swift */,
+				7724CFF529F17011009E21F1 /* Result.swift */,
 				77265BEE2942EB9800BA6E7D /* Main.storyboard */,
-				77265C002943008D00BA6E7D /* The End of the World.mp3 */,
-				77265C04294300CF00BA6E7D /* 因為你 所以我.mp3 */,
-				77265BFF2943008D00BA6E7D /* 崖上的波妞.mp3 */,
 				77265BF12942EB9800BA6E7D /* Assets.xcassets */,
 				77265BF32942EB9800BA6E7D /* LaunchScreen.storyboard */,
 				77265BF62942EB9800BA6E7D /* Info.plist */,
@@ -85,9 +88,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		77265BE42942EB9800BA6E7D /* Music Player(basic) */ = {
+		77265BE42942EB9800BA6E7D /* Music Player(advanced) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 77265BF92942EB9800BA6E7D /* Build configuration list for PBXNativeTarget "Music Player(basic)" */;
+			buildConfigurationList = 77265BF92942EB9800BA6E7D /* Build configuration list for PBXNativeTarget "Music Player(advanced)" */;
 			buildPhases = (
 				77265BE12942EB9800BA6E7D /* Sources */,
 				77265BE22942EB9800BA6E7D /* Frameworks */,
@@ -97,9 +100,9 @@
 			);
 			dependencies = (
 			);
-			name = "Music Player(basic)";
+			name = "Music Player(advanced)";
 			productName = "Music Player(basic)";
-			productReference = 77265BE52942EB9800BA6E7D /* Music Player(basic).app */;
+			productReference = 77265BE52942EB9800BA6E7D /* Music Player(advanced).app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -117,7 +120,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 77265BE02942EB9800BA6E7D /* Build configuration list for PBXProject "Music Player(basic)" */;
+			buildConfigurationList = 77265BE02942EB9800BA6E7D /* Build configuration list for PBXProject "Music Player(advanced)" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -130,7 +133,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				77265BE42942EB9800BA6E7D /* Music Player(basic) */,
+				77265BE42942EB9800BA6E7D /* Music Player(advanced) */,
 			);
 		};
 /* End PBXProject section */
@@ -140,9 +143,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				77265C032943008D00BA6E7D /* The End of the World.mp3 in Resources */,
-				77265C05294300CF00BA6E7D /* 因為你 所以我.mp3 in Resources */,
-				77265C022943008D00BA6E7D /* 崖上的波妞.mp3 in Resources */,
 				77265C0929438F1000BA6E7D /* ChenYuluoyan-Thin.ttf in Resources */,
 				77265BF52942EB9800BA6E7D /* LaunchScreen.storyboard in Resources */,
 				77265BF22942EB9800BA6E7D /* Assets.xcassets in Resources */,
@@ -157,10 +157,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7724CFF629F17011009E21F1 /* Result.swift in Sources */,
+				77FE821A29FA5E3B004BA19D /* MusicPlayerViewController+Extension.swift in Sources */,
+				7724CFF429F16AD2009E21F1 /* SearchViewController.swift in Sources */,
 				77265BE92942EB9800BA6E7D /* AppDelegate.swift in Sources */,
+				7724CFF829F220A1009E21F1 /* SearchViewController+Extension.swift in Sources */,
 				77265BEB2942EB9800BA6E7D /* SceneDelegate.swift in Sources */,
+				7724CFFA29F22325009E21F1 /* SongCollectionViewCell.swift in Sources */,
 				77265BFD2942FBB200BA6E7D /* MusicPlayerViewController.swift in Sources */,
-				77265C0729432FCD00BA6E7D /* PhotoUIImageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,7 +365,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		77265BE02942EB9800BA6E7D /* Build configuration list for PBXProject "Music Player(basic)" */ = {
+		77265BE02942EB9800BA6E7D /* Build configuration list for PBXProject "Music Player(advanced)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				77265BF72942EB9800BA6E7D /* Debug */,
@@ -370,7 +374,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		77265BF92942EB9800BA6E7D /* Build configuration list for PBXNativeTarget "Music Player(basic)" */ = {
+		77265BF92942EB9800BA6E7D /* Build configuration list for PBXNativeTarget "Music Player(advanced)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				77265BFA2942EB9800BA6E7D /* Debug */,
