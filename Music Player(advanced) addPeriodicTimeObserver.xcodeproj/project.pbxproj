@@ -26,7 +26,7 @@
 		7724CFF529F17011009E21F1 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		7724CFF729F220A1009E21F1 /* SearchViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchViewController+Extension.swift"; sourceTree = "<group>"; };
 		7724CFF929F22325009E21F1 /* SongCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongCollectionViewCell.swift; sourceTree = "<group>"; };
-		77265BE52942EB9800BA6E7D /* Music Player(advanced).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Music Player(advanced).app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		77265BE52942EB9800BA6E7D /* Music Player(advanced) addPeriodicTimeObserver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Music Player(advanced) addPeriodicTimeObserver.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		77265BE82942EB9800BA6E7D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		77265BEA2942EB9800BA6E7D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		77265BEF2942EB9800BA6E7D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -60,7 +60,7 @@
 		77265BE62942EB9800BA6E7D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				77265BE52942EB9800BA6E7D /* Music Player(advanced).app */,
+				77265BE52942EB9800BA6E7D /* Music Player(advanced) addPeriodicTimeObserver.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -88,9 +88,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		77265BE42942EB9800BA6E7D /* Music Player(advanced) */ = {
+		77265BE42942EB9800BA6E7D /* Music Player(advanced) addPeriodicTimeObserver */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 77265BF92942EB9800BA6E7D /* Build configuration list for PBXNativeTarget "Music Player(advanced)" */;
+			buildConfigurationList = 77265BF92942EB9800BA6E7D /* Build configuration list for PBXNativeTarget "Music Player(advanced) addPeriodicTimeObserver" */;
 			buildPhases = (
 				77265BE12942EB9800BA6E7D /* Sources */,
 				77265BE22942EB9800BA6E7D /* Frameworks */,
@@ -100,9 +100,9 @@
 			);
 			dependencies = (
 			);
-			name = "Music Player(advanced)";
+			name = "Music Player(advanced) addPeriodicTimeObserver";
 			productName = "Music Player(basic)";
-			productReference = 77265BE52942EB9800BA6E7D /* Music Player(advanced).app */;
+			productReference = 77265BE52942EB9800BA6E7D /* Music Player(advanced) addPeriodicTimeObserver.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -120,7 +120,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 77265BE02942EB9800BA6E7D /* Build configuration list for PBXProject "Music Player(advanced)" */;
+			buildConfigurationList = 77265BE02942EB9800BA6E7D /* Build configuration list for PBXProject "Music Player(advanced) addPeriodicTimeObserver" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -133,7 +133,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				77265BE42942EB9800BA6E7D /* Music Player(advanced) */,
+				77265BE42942EB9800BA6E7D /* Music Player(advanced) addPeriodicTimeObserver */,
 			);
 		};
 /* End PBXProject section */
@@ -365,7 +365,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		77265BE02942EB9800BA6E7D /* Build configuration list for PBXProject "Music Player(advanced)" */ = {
+		77265BE02942EB9800BA6E7D /* Build configuration list for PBXProject "Music Player(advanced) addPeriodicTimeObserver" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				77265BF72942EB9800BA6E7D /* Debug */,
@@ -374,7 +374,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		77265BF92942EB9800BA6E7D /* Build configuration list for PBXNativeTarget "Music Player(advanced)" */ = {
+		77265BF92942EB9800BA6E7D /* Build configuration list for PBXNativeTarget "Music Player(advanced) addPeriodicTimeObserver" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				77265BFA2942EB9800BA6E7D /* Debug */,

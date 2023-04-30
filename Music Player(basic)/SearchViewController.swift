@@ -72,11 +72,6 @@ class SearchViewController: UIViewController {
                     self.showNamesTransition()
                     print("🌟Transition timer running")
                 }
-                
-                if MusicPlayerViewController.timerCurrent?.isValid == true {
-                    MusicPlayerViewController.timerCurrent?.invalidate()
-                    print("list🛑timerCurrent?.invalidate()")
-                }
                 self.songStatus()
             }
         }

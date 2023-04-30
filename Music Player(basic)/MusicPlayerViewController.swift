@@ -27,19 +27,19 @@ class MusicPlayerViewController: UIViewController {
     @IBOutlet weak var volumeSlider: UISlider!
     @IBOutlet weak var timeSlider: UISlider!
     
+    var timeObserverToken: Any?
     var currentTime = Double(0)
     var musics = [Song]()
     var index = 0
     var url: URL? {
         willSet {
-            MusicPlayerViewController.timerCurrent?.invalidate()
-            print("url🛑timerCurrent?.invalidate()")
+            removePeriodTimeObserver()
+            print("url🛑removePeriodTimeObserver()")
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         volume()
         playMusic()
         configuration()
@@ -64,8 +64,8 @@ class MusicPlayerViewController: UIViewController {
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        MusicPlayerViewController.timerCurrent?.invalidate()
-        print("viewDidDisappear🛑timerCurrent?.invalidate()")
+        removePeriodTimeObserver()
+        print("url🛑removePeriodTimeObserver()")
     }
     
     //playing music in background
@@ -109,29 +109,16 @@ class MusicPlayerViewController: UIViewController {
         //show singer
         MusicPlayerViewController.singer = musics[self.index].artistName
         singerLabel.text = MusicPlayerViewController.singer
+        
         //show totoal time
         let totaltime = (MusicPlayerViewController.player.currentItem?.asset.duration.seconds)!
         let newTotalTime = Int(totaltime).quotientAndRemainder(dividingBy: 60)
         let showTotalTime = "\(newTotalTime.quotient):\(newTotalTime.remainder)"
-        
         self.totalTimeLabel.text = showTotalTime
-        
         self.timeSlider.maximumValue = Float(totaltime)
         //show process of time
         if self.currentTime.isZero == true {
-            MusicPlayerViewController.timerCurrent = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) {_ in
-                
-                self.currentTime = MusicPlayerViewController.player.currentTime().seconds
-                
-                self.timeConfiguration()
-            }
-        } else {
-            let time = CMTime(value: Int64(self.currentTime), timescale: 1)
-            MusicPlayerViewController.player.seek(to: time)
-            MusicPlayerViewController.timerCurrent = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) {_ in
-                
-                self.timeConfiguration()
-            }
+            addPerioedTimeObserver()
         }
     }
     
@@ -150,6 +137,27 @@ class MusicPlayerViewController: UIViewController {
         
         self.timeSlider.value = Float(self.currentTime)
         
+    }
+    
+    func addPerioedTimeObserver() {
+        
+        let timeScale = CMTimeScale(NSEC_PER_SEC)
+        let time = CMTime(seconds: 1, preferredTimescale: timeScale)
+        
+        self.timeObserverToken = MusicPlayerViewController.player.addPeriodicTimeObserver(forInterval: time, queue: .main, using: { _ in
+            
+            self.currentTime =  MusicPlayerViewController.player.currentTime().seconds
+            self.timeConfiguration()
+            
+        })
+    }
+    
+    func removePeriodTimeObserver() {
+        
+        if let timeObserver = self.timeObserverToken {
+            MusicPlayerViewController.player.removeTimeObserver(timeObserver)
+            self.timeObserverToken = nil
+        }
     }
     
     func configuration() {
