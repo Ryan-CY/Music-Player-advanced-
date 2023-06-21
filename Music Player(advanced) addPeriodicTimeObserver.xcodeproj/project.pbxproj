@@ -18,7 +18,6 @@
 		77265BF52942EB9800BA6E7D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77265BF32942EB9800BA6E7D /* LaunchScreen.storyboard */; };
 		77265BFD2942FBB200BA6E7D /* MusicPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77265BFC2942FBB200BA6E7D /* MusicPlayerViewController.swift */; };
 		77265C0929438F1000BA6E7D /* ChenYuluoyan-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 77265C0829438F1000BA6E7D /* ChenYuluoyan-Thin.ttf */; };
-		77FE821A29FA5E3B004BA19D /* MusicPlayerViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FE821929FA5E3B004BA19D /* MusicPlayerViewController+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,7 +34,6 @@
 		77265BF62942EB9800BA6E7D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		77265BFC2942FBB200BA6E7D /* MusicPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicPlayerViewController.swift; sourceTree = "<group>"; };
 		77265C0829438F1000BA6E7D /* ChenYuluoyan-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ChenYuluoyan-Thin.ttf"; sourceTree = "<group>"; };
-		77FE821929FA5E3B004BA19D /* MusicPlayerViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MusicPlayerViewController+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,7 +70,6 @@
 				77265BE82942EB9800BA6E7D /* AppDelegate.swift */,
 				77265BEA2942EB9800BA6E7D /* SceneDelegate.swift */,
 				77265BFC2942FBB200BA6E7D /* MusicPlayerViewController.swift */,
-				77FE821929FA5E3B004BA19D /* MusicPlayerViewController+Extension.swift */,
 				7724CFF329F16AD2009E21F1 /* SearchViewController.swift */,
 				7724CFF729F220A1009E21F1 /* SearchViewController+Extension.swift */,
 				7724CFF929F22325009E21F1 /* SongCollectionViewCell.swift */,
@@ -158,7 +155,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7724CFF629F17011009E21F1 /* Result.swift in Sources */,
-				77FE821A29FA5E3B004BA19D /* MusicPlayerViewController+Extension.swift in Sources */,
 				7724CFF429F16AD2009E21F1 /* SearchViewController.swift in Sources */,
 				77265BE92942EB9800BA6E7D /* AppDelegate.swift in Sources */,
 				7724CFF829F220A1009E21F1 /* SearchViewController+Extension.swift in Sources */,

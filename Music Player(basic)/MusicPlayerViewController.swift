@@ -12,31 +12,23 @@ import AVFoundation
 class MusicPlayerViewController: UIViewController {
     
     @IBOutlet weak var shadowView: UIView!
-    
     @IBOutlet weak var songPhotoImageView: UIImageView!
-    
     @IBOutlet weak var songLabel: UILabel!
     @IBOutlet weak var singerLabel: UILabel!
     @IBOutlet weak var playingTimeLabel: UILabel!
     @IBOutlet weak var totalTimeLabel: UILabel!
-    
     @IBOutlet weak var shuffleButton: UIButton!
     @IBOutlet weak var playPauseButton: UIButton!
     @IBOutlet weak var repeatButton: UIButton!
-    
     @IBOutlet weak var volumeSlider: UISlider!
     @IBOutlet weak var timeSlider: UISlider!
     
+    let player = AVPlayer()
     var timeObserverToken: Any?
     var currentTime = Double(0)
     var musics = [Song]()
     var index = 0
-    var url: URL? {
-        willSet {
-            removePeriodTimeObserver()
-            print("url🛑removePeriodTimeObserver()")
-        }
-    }
+    var url: URL?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,23 +41,18 @@ class MusicPlayerViewController: UIViewController {
             if self.repeatButton.imageView?.image == UIImage(systemName: "repeat") {
                 //自動播放下一首
                 //print("🔁🔁🔁")
-                MusicPlayerViewController.player.pause()
+                self.player.pause()
                 self.index = (self.index + 1) % self.musics.count
                 self.currentTime = 0
                 self.playMusic()
             } else if self.repeatButton.imageView?.image == UIImage(systemName: "repeat.1") {
                 //print("🔂")
-                MusicPlayerViewController.player.pause()
+                self.player.pause()
                 
                 self.currentTime = 0
                 self.playMusic()
             }
         }
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        removePeriodTimeObserver()
-        print("url🛑removePeriodTimeObserver()")
     }
     
     //playing music in background
@@ -75,17 +62,17 @@ class MusicPlayerViewController: UIViewController {
     }
     
     func volume() {
-        volumeSlider.value = MusicPlayerViewController.controllerVolume
-        MusicPlayerViewController.player.volume = volumeSlider.value
+        volumeSlider.value = 0.5
+        player.volume = volumeSlider.value
     }
     
     func playMusic() {
         
         // 4 steps to play music
-        self.url = musics[self.index].previewUrl
-        let playerItem = AVPlayerItem(url: self.url!)
-        MusicPlayerViewController.player.replaceCurrentItem(with: playerItem)
-        MusicPlayerViewController.player.play()
+        url = musics[index].previewUrl
+        let playerItem = AVPlayerItem(url: url!)
+        player.replaceCurrentItem(with: playerItem)
+        player.play()
         
         //show pause button
         playPauseButton.configuration?.image = UIImage(systemName: "pause.fill")
@@ -96,22 +83,19 @@ class MusicPlayerViewController: UIViewController {
                 print("image statusCode", response.statusCode)
                 let image = UIImage(data: data)
                 DispatchQueue.main.async {
-                    MusicPlayerViewController.songPicture = image
-                    self.songPhotoImageView.image = MusicPlayerViewController.songPicture
+                    self.songPhotoImageView.image = image
                     self.songPhotoImageView.contentMode = .scaleAspectFill
                 }
             }
         }.resume()
         
         //show song name
-        MusicPlayerViewController.songName = musics[self.index].trackName
-        songLabel.text = MusicPlayerViewController.songName
+        songLabel.text = musics[self.index].trackName
         //show singer
-        MusicPlayerViewController.singer = musics[self.index].artistName
-        singerLabel.text = MusicPlayerViewController.singer
+        singerLabel.text = musics[self.index].artistName
         
         //show totoal time
-        let totaltime = (MusicPlayerViewController.player.currentItem?.asset.duration.seconds)!
+        let totaltime = (player.currentItem?.asset.duration.seconds)!
         let newTotalTime = Int(totaltime).quotientAndRemainder(dividingBy: 60)
         let showTotalTime = "\(newTotalTime.quotient):\(newTotalTime.remainder)"
         self.totalTimeLabel.text = showTotalTime
@@ -144,21 +128,23 @@ class MusicPlayerViewController: UIViewController {
         let timeScale = CMTimeScale(NSEC_PER_SEC)
         let time = CMTime(seconds: 1, preferredTimescale: timeScale)
         
-        self.timeObserverToken = MusicPlayerViewController.player.addPeriodicTimeObserver(forInterval: time, queue: .main, using: { _ in
+        self.timeObserverToken = player.addPeriodicTimeObserver(forInterval: time, queue: .main, using: { _ in
             
-            self.currentTime =  MusicPlayerViewController.player.currentTime().seconds
+            self.currentTime = self.player.currentTime().seconds
+            print(self.currentTime)
             self.timeConfiguration()
             
         })
     }
     
-    func removePeriodTimeObserver() {
-        
-        if let timeObserver = self.timeObserverToken {
-            MusicPlayerViewController.player.removeTimeObserver(timeObserver)
-            self.timeObserverToken = nil
-        }
-    }
+//    func removePeriodTimeObserver() {
+//
+//        if let timeObserver = self.timeObserverToken {
+//            player.removeTimeObserver(timeObserver)
+//            self.timeObserverToken = nil
+//        }
+//    }
+    
     
     func configuration() {
         
@@ -199,56 +185,54 @@ class MusicPlayerViewController: UIViewController {
     }
     
     @IBAction func playButtonChosen(_ sender: UIButton) {
-        switch MusicPlayerViewController.player.timeControlStatus {
+        switch player.timeControlStatus {
             //playing song
         case .playing :
             //pause song
-            MusicPlayerViewController.player.pause()
+            player.pause()
             //change the image of button
             sender.configuration?.image = UIImage(systemName: "play.fill")
             
         default:
-            MusicPlayerViewController.player.play()
+            player.play()
             sender.configuration?.image = UIImage(systemName: "pause.fill")
         }
     }
     
     @IBAction func nextButton(_ sender: Any) {
         self.currentTime = 0
-        MusicPlayerViewController.player.pause()
+        player.pause()
         self.index = (self.index + 1) % musics.count
         playMusic()
     }
     
     @IBAction func preButton(_ sender: Any) {
         self.currentTime = 0
-        MusicPlayerViewController.player.pause()
+        player.pause()
         self.index = (self.index+musics.count-1) % musics.count
         playMusic()
     }
     
     @IBAction func changeVolumeSlider(_ sender: UISlider) {
         
-        MusicPlayerViewController.controllerVolume = sender.value
-        
-        MusicPlayerViewController.player.volume = MusicPlayerViewController.controllerVolume
+        player.volume = sender.value
         //print("🔊MusicPlayerViewController.controllerVolume", MusicPlayerViewController.controllerVolume)
     }
     
     //change process of song while sliding the slider
     @IBAction func changeTimeSlider(_ sender: UISlider) {
         let time = CMTime(value: CMTimeValue(sender.value), timescale: 1)
-        MusicPlayerViewController.player.seek(to: time)
+        player.seek(to: time)
     }
     
     @IBAction func pressGoforward(_ sender: Any) {
         let time = CMTime(value: Int64(timeSlider.value + 5), timescale: 1)
-        MusicPlayerViewController.player.seek(to: time)
+        player.seek(to: time)
     }
     
     @IBAction func pressBackward(_ sender: Any) {
         let time = CMTime(value: Int64(timeSlider.value - 5), timescale: 1)
-        MusicPlayerViewController.player.seek(to: time)
+        player.seek(to: time)
     }
     
     @IBAction func pressRepeat(_ sender: Any) {

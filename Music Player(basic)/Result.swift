@@ -15,10 +15,10 @@ struct Song: Decodable, Equatable {
     let artistName: String
     let trackName: String
     let previewUrl: URL
-    let artworkUrl100: URL
+    let artworkUrl100: String
     
     //change image size
     var artworkUrl500: URL {
-        artworkUrl100.deletingLastPathComponent().appendingPathComponent("500x500.jpg")
+        URL(string: artworkUrl100)!.deletingLastPathComponent().appendingPathComponent("500x500.jpg")
     }
 }

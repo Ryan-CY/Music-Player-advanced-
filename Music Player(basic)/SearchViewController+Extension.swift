@@ -14,8 +14,8 @@ extension SearchViewController: UISearchBarDelegate {
         
         if searchBar.text != "" {
             fetchMusic(term: searchBar.text ?? "")
-            view.endEditing(true)
             collectionView.reloadData()
+            view.endEditing(true)
         }
     }
 }
